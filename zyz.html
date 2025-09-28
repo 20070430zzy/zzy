@@ -1,0 +1,1270 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>创意姻缘测试智能体 - 终端版</title>
+    <style>
+        /* 极简终端风格设计 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Microsoft YaHei', 'SimHei', 'Courier New', monospace;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f0f0f0;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background-color: #fff;
+            border: 2px solid #333;
+            border-radius: 8px;
+            padding: 30px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2.2rem;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 15px;
+        }
+        
+        h2 {
+            color: #3498db;
+            margin: 25px 0 15px;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        h2::before {
+            content: "📋";
+            margin-right: 10px;
+        }
+        
+        h3 {
+            color: #2980b9;
+            margin: 20px 0 10px;
+            font-size: 1.2rem;
+        }
+        
+        .terminal-guide {
+            background-color: #1e1e1e;
+            color: #ffffff;
+            padding: 20px;
+            margin-bottom: 30px;
+            border-radius: 6px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.95rem;
+        }
+        
+        .terminal-guide h3 {
+            color: #4ecdc4;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+        
+        .terminal-guide code {
+            color: #ff6b6b;
+            background-color: #333;
+            padding: 2px 6px;
+            border-radius: 3px;
+        }
+        
+        .section {
+            margin-bottom: 25px;
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-radius: 6px;
+            border-left: 4px solid #3498db;
+        }
+        
+        .form-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+        
+        .form-group {
+            flex: 1;
+            min-width: 250px;
+            margin-bottom: 15px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        
+        .form-group input[type="text"],
+        .form-group input[type="date"],
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+        
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #3498db;
+        }
+        
+        .radio-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 8px;
+        }
+        
+        .radio-group label {
+            display: flex;
+            align-items: center;
+            font-weight: normal;
+            cursor: pointer;
+        }
+        
+        .radio-group input[type="radio"] {
+            margin-right: 6px;
+        }
+        
+        .checkbox-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 8px;
+        }
+        
+        .checkbox-group label {
+            display: flex;
+            align-items: center;
+            font-weight: normal;
+            cursor: pointer;
+            padding: 5px 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            transition: all 0.3s;
+        }
+        
+        .checkbox-group label:hover {
+            background-color: #e8f4fd;
+            border-color: #3498db;
+        }
+        
+        .checkbox-group input[type="checkbox"] {
+            margin-right: 6px;
+        }
+        
+        .divider {
+            height: 2px;
+            background-color: #ddd;
+            margin: 25px 0;
+            border-radius: 1px;
+        }
+        
+        .btn {
+            display: block;
+            width: 100%;
+            max-width: 240px;
+            margin: 0 auto 20px;
+            padding: 12px 24px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+        
+        .btn:hover {
+            background-color: #2980b9;
+            transform: translateY(-2px);
+        }
+        
+        .btn:active {
+            transform: translateY(0);
+        }
+        
+        .btn-secondary {
+            background-color: #27ae60;
+        }
+        
+        .btn-secondary:hover {
+            background-color: #229954;
+        }
+        
+        #results {
+            display: none;
+            margin-top: 30px;
+            padding: 25px;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            border: 2px solid #3498db;
+        }
+        
+        .score-container {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .score-display {
+            font-size: 3.5rem;
+            font-weight: bold;
+            color: #e74c3c;
+            margin: 15px 0;
+        }
+        
+        .level-display {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .analysis {
+            margin-bottom: 20px;
+            padding: 15px;
+            background-color: #fff;
+            border-radius: 6px;
+            border-left: 3px solid #3498db;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+        }
+        
+        .analysis h3 {
+            margin-top: 0;
+            color: #3498db;
+            display: flex;
+            align-items: center;
+        }
+        
+        .analysis h3::before {
+            margin-right: 8px;
+            font-size: 1.2em;
+        }
+        
+        .mbti-analysis h3::before { content: "🧠" }
+        .zodiac-analysis h3::before { content: "🌟" }
+        .elements-analysis h3::before { content: "✨" }
+        .hobby-analysis h3::before { content: "🎯" }
+        .music-analysis h3::before { content: "🎵" }
+        .habit-analysis h3::before { content: "🔄" }
+        .advice-analysis h3::before { content: "💡" }
+        
+        /* 终端响应式设计 */
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            
+            .container {
+                padding: 15px;
+            }
+            
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            h2 {
+                font-size: 1.3rem;
+            }
+            
+            .form-group {
+                min-width: 100%;
+            }
+            
+            .score-display {
+                font-size: 2.5rem;
+            }
+            
+            .level-display {
+                font-size: 1.2rem;
+            }
+        }
+        
+        /* 加载动画 */
+        .loading {
+            display: none;
+            text-align: center;
+            margin-top: 20px;
+        }
+        
+        .loading span {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            margin: 0 3px;
+            background-color: #3498db;
+            border-radius: 50%;
+            animation: loading 1s ease-in-out infinite;
+        }
+        
+        .loading span:nth-child(2) { animation-delay: 0.2s; }
+        .loading span:nth-child(3) { animation-delay: 0.4s; }
+        
+        @keyframes loading {
+            0%, 80%, 100% { transform: scale(0); }
+            40% { transform: scale(1); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 终端使用指南 -->
+        <div class="terminal-guide">
+            <h3>💻 终端运行指南</h3>
+            <p>此智能体专为终端环境优化，支持以下打开方式：</p>
+            <ul>
+                <li>Windows PowerShell: <code>start creative_marriage_test_terminal.html</code></li>
+                <li>命令提示符: <code>start creative_marriage_test_terminal.html</code></li>
+                <li>Git Bash/Zsh: <code>start creative_marriage_test_terminal.html</code> 或 <code>xdg-open creative_marriage_test_terminal.html</code></li>
+                <li>直接双击文件打开</li>
+            </ul>
+            <p>特点：完全离线运行，界面简洁，响应式设计，兼容各种浏览器。</p>
+        </div>
+        
+        <h1>🎎 创意姻缘测试智能体</h1>
+        
+        <!-- 测算表单 -->
+        <form id="marriage-test-form">
+            <!-- 第一个人信息 -->
+            <div class="section">
+                <h2>👤 个人信息 (一)</h2>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="name1">姓名：</label>
+                        <input type="text" id="name1" required placeholder="请输入姓名">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>性别：</label>
+                        <div class="radio-group">
+                            <label><input type="radio" name="gender1" value="男" checked> 男</label>
+                            <label><input type="radio" name="gender1" value="女"> 女</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="birthday1">出生日期：</label>
+                        <input type="date" id="birthday1" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="mbti1">MBTI性格类型：</label>
+                        <select id="mbti1">
+                            <option value="ISTJ">ISTJ</option>
+                            <option value="ISFJ">ISFJ</option>
+                            <option value="INFJ">INFJ</option>
+                            <option value="INTJ">INTJ</option>
+                            <option value="ISTP">ISTP</option>
+                            <option value="ISFP">ISFP</option>
+                            <option value="INFP">INFP</option>
+                            <option value="INTP">INTP</option>
+                            <option value="ESTP">ESTP</option>
+                            <option value="ESFP">ESFP</option>
+                            <option value="ENFP">ENFP</option>
+                            <option value="ENTP">ENTP</option>
+                            <option value="ESTJ">ESTJ</option>
+                            <option value="ESFJ">ESFJ</option>
+                            <option value="ENFJ">ENFJ</option>
+                            <option value="ENTJ">ENTJ</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="zodiac1">星座：</label>
+                        <select id="zodiac1">
+                            <option value="水瓶座">水瓶座 (1.20-2.18)</option>
+                            <option value="双鱼座">双鱼座 (2.19-3.20)</option>
+                            <option value="白羊座">白羊座 (3.21-4.19)</option>
+                            <option value="金牛座">金牛座 (4.20-5.20)</option>
+                            <option value="双子座">双子座 (5.21-6.21)</option>
+                            <option value="巨蟹座">巨蟹座 (6.22-7.22)</option>
+                            <option value="狮子座">狮子座 (7.23-8.22)</option>
+                            <option value="处女座">处女座 (8.23-9.22)</option>
+                            <option value="天秤座">天秤座 (9.23-10.23)</option>
+                            <option value="天蝎座">天蝎座 (10.24-11.22)</option>
+                            <option value="射手座">射手座 (11.23-12.21)</option>
+                            <option value="摩羯座">摩羯座 (12.22-1.19)</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="element1">五行属性：</label>
+                        <select id="element1">
+                            <option value="金">金</option>
+                            <option value="木">木</option>
+                            <option value="水">水</option>
+                            <option value="火">火</option>
+                            <option value="土">土</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label>个人爱好（可多选）：</label>
+                    <div class="checkbox-group">
+                        <label><input type="checkbox" name="hobby1" value="读书"> 读书</label>
+                        <label><input type="checkbox" name="hobby1" value="旅行"> 旅行</label>
+                        <label><input type="checkbox" name="hobby1" value="运动"> 运动</label>
+                        <label><input type="checkbox" name="hobby1" value="音乐"> 音乐</label>
+                        <label><input type="checkbox" name="hobby1" value="电影"> 电影</label>
+                        <label><input type="checkbox" name="hobby1" value="烹饪"> 烹饪</label>
+                        <label><input type="checkbox" name="hobby1" value="游戏"> 游戏</label>
+                        <label><input type="checkbox" name="hobby1" value="摄影"> 摄影</label>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label>音乐偏好（可多选）：</label>
+                    <div class="checkbox-group">
+                        <label><input type="checkbox" name="music1" value="流行"> 流行</label>
+                        <label><input type="checkbox" name="music1" value="摇滚"> 摇滚</label>
+                        <label><input type="checkbox" name="music1" value="古典"> 古典</label>
+                        <label><input type="checkbox" name="music1" value="爵士"> 爵士</label>
+                        <label><input type="checkbox" name="music1" value="电子"> 电子</label>
+                        <label><input type="checkbox" name="music1" value="民谣"> 民谣</label>
+                        <label><input type="checkbox" name="music1" value="嘻哈"> 嘻哈</label>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label>行为习惯：</label>
+                    <textarea id="habits1" rows="3" placeholder="请简要描述你的日常行为习惯，如作息时间、处事方式等"></textarea>
+                </div>
+            </div>
+            
+            <div class="divider"></div>
+            
+            <!-- 第二个人信息 -->
+            <div class="section">
+                <h2>👤 个人信息 (二)</h2>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="name2">姓名：</label>
+                        <input type="text" id="name2" required placeholder="请输入姓名">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>性别：</label>
+                        <div class="radio-group">
+                            <label><input type="radio" name="gender2" value="男"> 男</label>
+                            <label><input type="radio" name="gender2" value="女" checked> 女</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="birthday2">出生日期：</label>
+                        <input type="date" id="birthday2" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="mbti2">MBTI性格类型：</label>
+                        <select id="mbti2">
+                            <option value="ISTJ">ISTJ</option>
+                            <option value="ISFJ">ISFJ</option>
+                            <option value="INFJ">INFJ</option>
+                            <option value="INTJ">INTJ</option>
+                            <option value="ISTP">ISTP</option>
+                            <option value="ISFP">ISFP</option>
+                            <option value="INFP">INFP</option>
+                            <option value="INTP">INTP</option>
+                            <option value="ESTP">ESTP</option>
+                            <option value="ESFP">ESFP</option>
+                            <option value="ENFP">ENFP</option>
+                            <option value="ENTP">ENTP</option>
+                            <option value="ESTJ">ESTJ</option>
+                            <option value="ESFJ">ESFJ</option>
+                            <option value="ENFJ">ENFJ</option>
+                            <option value="ENTJ">ENTJ</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="zodiac2">星座：</label>
+                        <select id="zodiac2">
+                            <option value="水瓶座">水瓶座 (1.20-2.18)</option>
+                            <option value="双鱼座">双鱼座 (2.19-3.20)</option>
+                            <option value="白羊座">白羊座 (3.21-4.19)</option>
+                            <option value="金牛座">金牛座 (4.20-5.20)</option>
+                            <option value="双子座">双子座 (5.21-6.21)</option>
+                            <option value="巨蟹座">巨蟹座 (6.22-7.22)</option>
+                            <option value="狮子座">狮子座 (7.23-8.22)</option>
+                            <option value="处女座">处女座 (8.23-9.22)</option>
+                            <option value="天秤座">天秤座 (9.23-10.23)</option>
+                            <option value="天蝎座">天蝎座 (10.24-11.22)</option>
+                            <option value="射手座">射手座 (11.23-12.21)</option>
+                            <option value="摩羯座">摩羯座 (12.22-1.19)</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="element2">五行属性：</label>
+                        <select id="element2">
+                            <option value="金">金</option>
+                            <option value="木">木</option>
+                            <option value="水">水</option>
+                            <option value="火">火</option>
+                            <option value="土">土</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label>个人爱好（可多选）：</label>
+                    <div class="checkbox-group">
+                        <label><input type="checkbox" name="hobby2" value="读书"> 读书</label>
+                        <label><input type="checkbox" name="hobby2" value="旅行"> 旅行</label>
+                        <label><input type="checkbox" name="hobby2" value="运动"> 运动</label>
+                        <label><input type="checkbox" name="hobby2" value="音乐"> 音乐</label>
+                        <label><input type="checkbox" name="hobby2" value="电影"> 电影</label>
+                        <label><input type="checkbox" name="hobby2" value="烹饪"> 烹饪</label>
+                        <label><input type="checkbox" name="hobby2" value="游戏"> 游戏</label>
+                        <label><input type="checkbox" name="hobby2" value="摄影"> 摄影</label>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label>音乐偏好（可多选）：</label>
+                    <div class="checkbox-group">
+                        <label><input type="checkbox" name="music2" value="流行"> 流行</label>
+                        <label><input type="checkbox" name="music2" value="摇滚"> 摇滚</label>
+                        <label><input type="checkbox" name="music2" value="古典"> 古典</label>
+                        <label><input type="checkbox" name="music2" value="爵士"> 爵士</label>
+                        <label><input type="checkbox" name="music2" value="电子"> 电子</label>
+                        <label><input type="checkbox" name="music2" value="民谣"> 民谣</label>
+                        <label><input type="checkbox" name="music2" value="嘻哈"> 嘻哈</label>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label>行为习惯：</label>
+                    <textarea id="habits2" rows="3" placeholder="请简要描述你的日常行为习惯，如作息时间、处事方式等"></textarea>
+                </div>
+            </div>
+            
+            <button type="button" class="btn" id="test-btn">🔮 开始姻缘测试</button>
+            
+            <div class="loading" id="loading">
+                <span></span><span></span><span></span>
+                <p>正在分析你们的缘分...</p>
+            </div>
+        </form>
+        
+        <!-- 测算结果 -->
+        <div id="results">
+            <h2>✨ 姻缘测试结果</h2>
+            
+            <div class="score-container">
+                <div class="score-display" id="compatibility-score">0%</div>
+                <div class="level-display" id="compatibility-level"></div>
+                <p id="overall-summary"></p>
+            </div>
+            
+            <div class="analysis mbti-analysis">
+                <h3>🧠 MBTI性格匹配</h3>
+                <p id="mbti-analysis"></p>
+            </div>
+            
+            <div class="analysis zodiac-analysis">
+                <h3>🌟 星座契合度</h3>
+                <p id="zodiac-analysis"></p>
+            </div>
+            
+            <div class="analysis elements-analysis">
+                <h3>✨ 五行相生相克</h3>
+                <p id="elements-analysis"></p>
+            </div>
+            
+            <div class="analysis hobby-analysis">
+                <h3>🎯 兴趣爱好匹配</h3>
+                <p id="hobby-analysis"></p>
+            </div>
+            
+            <div class="analysis music-analysis">
+                <h3>🎵 音乐品味协调度</h3>
+                <p id="music-analysis"></p>
+            </div>
+            
+            <div class="analysis habit-analysis">
+                <h3>🔄 行为习惯互补</h3>
+                <p id="habit-analysis"></p>
+            </div>
+            
+            <div class="analysis advice-analysis">
+                <h3>💡 相处建议</h3>
+                <p id="advice"></p>
+            </div>
+            
+            <button type="button" class="btn btn-secondary" id="restart-btn">🔄 重新测试</button>
+        </div>
+    </div>
+    
+    <script>
+        // 获取DOM元素
+        const form = document.getElementById('marriage-test-form');
+        const resultsDiv = document.getElementById('results');
+        const testBtn = document.getElementById('test-btn');
+        const restartBtn = document.getElementById('restart-btn');
+        const loadingDiv = document.getElementById('loading');
+        const scoreEl = document.getElementById('compatibility-score');
+        const levelEl = document.getElementById('compatibility-level');
+        const overallSummaryEl = document.getElementById('overall-summary');
+        const mbtiAnalysisEl = document.getElementById('mbti-analysis');
+        const zodiacAnalysisEl = document.getElementById('zodiac-analysis');
+        const elementsAnalysisEl = document.getElementById('elements-analysis');
+        const hobbyAnalysisEl = document.getElementById('hobby-analysis');
+        const musicAnalysisEl = document.getElementById('music-analysis');
+        const habitAnalysisEl = document.getElementById('habit-analysis');
+        const adviceEl = document.getElementById('advice');
+        
+        // MBTI匹配度数据库
+        const mbtiCompatibility = {
+            'ISTJ': {
+                'best': ['ESTJ', 'ISTJ', 'ISFJ'],
+                'good': ['INTJ', 'INFJ', 'ESTP', 'ISTP', 'ISFP'],
+                'analysis': {
+                    'ESTJ': 'ISTJ和ESTJ是绝佳搭档，你们都重视传统、规则和秩序，在生活中能够相互理解和支持。',
+                    'ISTJ': '两个ISTJ在一起，会形成非常稳定和可靠的关系，你们的价值观高度一致。',
+                    'ISFJ': 'ISTJ和ISFJ的组合非常和谐，你们都很务实，善于照顾他人，共同创造温馨的家庭氛围。',
+                    'INTJ': 'ISTJ和INTJ都是理性思考者，你们可以在很多问题上达成共识，但需要注意沟通方式。',
+                    'INFJ': 'ISTJ的务实和INFJ的直觉可以形成很好的互补，你们能够相互学习和成长。',
+                    'default': 'ISTJ是踏实可靠的守护者，在这段关系中，你需要学会理解对方的思维方式。'
+                }
+            },
+            'ISFJ': {
+                'best': ['ESFJ', 'ISFJ', 'ISTJ'],
+                'good': ['INFJ', 'INTJ', 'ESFP', 'ISFP', 'ISTP'],
+                'analysis': {
+                    'ESFJ': 'ISFJ和ESFJ的组合充满温情，你们都善于照顾他人，能够创造充满爱的关系。',
+                    'ISFJ': '两个ISFJ在一起，会非常体贴和关怀彼此，关系稳定而温馨。',
+                    'ISTJ': 'ISFJ的温暖和ISTJ的可靠是完美搭配，你们能够相互支持和理解。',
+                    'INFJ': 'ISFJ和INFJ都重视情感连接，你们的关系会充满深度和理解。',
+                    'INTJ': 'ISFJ的关怀和INTJ的理性可以形成很好的互补，创造平衡的关系。',
+                    'default': 'ISFJ是温暖体贴的照顾者，在这段关系中，你需要学会表达自己的需求。'
+                }
+            },
+            'INFJ': {
+                'best': ['ENFJ', 'INFJ', 'INTJ'],
+                'good': ['ISFJ', 'ISTJ', 'ENFP', 'INFP', 'INTJ'],
+                'analysis': {
+                    'ENFJ': 'INFJ和ENFJ都是理想主义者，你们能够深刻理解彼此的内心世界，关系充满深度。',
+                    'INFJ': '两个INFJ在一起，会形成灵魂伴侣般的连接，你们的精神世界高度契合。',
+                    'INTJ': 'INFJ的直觉和INTJ的理性是完美搭配，你们能够相互启发和支持。',
+                    'ISFJ': 'INFJ和ISFJ都重视情感，你们的关系会充满温暖和理解。',
+                    'ISTJ': 'INFJ的理想主义和ISTJ的务实可以形成互补，创造平衡的关系。',
+                    'default': 'INFJ是深刻的理想主义者，在这段关系中，你需要找到能够理解你内心世界的人。'
+                }
+            },
+            'INTJ': {
+                'best': ['ENTJ', 'INTJ', 'INFJ'],
+                'good': ['ISTJ', 'ISFJ', 'ENTP', 'INTP', 'INFJ'],
+                'analysis': {
+                    'ENTJ': 'INTJ和ENTJ都是战略思考者，你们能够相互挑战和激励，共同成长。',
+                    'INTJ': '两个INTJ在一起，会形成思想上的深度交流，你们的智力碰撞会带来很多乐趣。',
+                    'INFJ': 'INTJ的理性和INFJ的直觉是完美搭配，你们能够深刻理解彼此。',
+                    'ISTJ': 'INTJ的创新和ISTJ的可靠可以形成互补，创造稳定而有活力的关系。',
+                    'ISFJ': 'INTJ的独立和ISFJ的关怀可以形成平衡，你们需要学会相互理解。',
+                    'default': 'INTJ是独立的战略思考者，在这段关系中，你需要找到能够与你思想对话的人。'
+                }
+            },
+            'ISTP': {
+                'best': ['ESTP', 'ISTP', 'INTP'],
+                'good': ['ISTJ', 'ISFJ', 'ESTJ', 'ESFJ', 'ISFP'],
+                'analysis': {
+                    'ESTP': 'ISTP和ESTP都是行动派，你们喜欢探索和尝试新事物，关系充满活力。',
+                    'ISTP': '两个ISTP在一起，会相互尊重对方的独立性，关系轻松自在。',
+                    'INTP': 'ISTP的实践能力和INTP的理论思维可以形成很好的互补，你们能够相互学习。',
+                    'ISTJ': 'ISTP的灵活和ISTJ的可靠可以形成平衡，你们需要学会理解彼此的做事方式。',
+                    'ISFJ': 'ISTP的独立和ISFJ的关怀需要一些磨合，但也能形成互补。',
+                    'default': 'ISTP是灵活的问题解决者，在这段关系中，你需要保持一定的独立性。'
+                }
+            },
+            'ISFP': {
+                'best': ['ESFP', 'ISFP', 'INFP'],
+                'good': ['ISFJ', 'ISTJ', 'ESFJ', 'ESTJ', 'ISTP'],
+                'analysis': {
+                    'ESFP': 'ISFP和ESFP都热爱生活，你们能够一起享受当下，关系充满热情。',
+                    'ISFP': '两个ISFP在一起，会相互理解对方的情感需求，关系温柔而和谐。',
+                    'INFP': 'ISFP的艺术气质和INFP的理想主义可以形成美好的组合，你们的精神世界高度契合。',
+                    'ISFJ': 'ISFP的感性和ISFJ的关怀可以形成温暖的关系，你们都重视情感连接。',
+                    'ISTJ': 'ISFP的灵活和ISTJ的稳定需要一些磨合，但也能相互学习。',
+                    'default': 'ISFP是温柔的艺术家，在这段关系中，你需要找到能够欣赏你独特性的人。'
+                }
+            },
+            'INFP': {
+                'best': ['ENFP', 'INFP', 'INFJ'],
+                'good': ['INFJ', 'INTJ', 'ENTP', 'INTP', 'ENFJ'],
+                'analysis': {
+                    'ENFP': 'INFP和ENFP都是理想主义者，你们能够相互理解和支持，关系充满激情和创意。',
+                    'INFP': '两个INFP在一起，会形成精神上的深度连接，你们的价值观高度一致。',
+                    'INFJ': 'INFP和INFJ是灵魂伴侣的典范，你们能够深刻理解彼此的内心世界。',
+                    'INTJ': 'INFP的理想主义和INTJ的理性可以形成很好的互补，你们能够相互启发。',
+                    'ENTP': 'INFP的价值观和ENTP的创新思维可以形成有趣的组合，你们需要学会相互包容。',
+                    'default': 'INFP是理想主义的诗人，在这段关系中，你需要找到能够与你共享价值观的人。'
+                }
+            },
+            'INTP': {
+                'best': ['ENTP', 'INTP', 'INTJ'],
+                'good': ['INTJ', 'INFJ', 'ENTJ', 'ENFJ', 'ENTP'],
+                'analysis': {
+                    'ENTP': 'INTP和ENTP都是思想者，你们能够进行深度的智力交流，关系充满趣味和挑战。',
+                    'INTP': '两个INTP在一起，会形成思想上的默契，你们能够相互理解对方的思维方式。',
+                    'INTJ': 'INTP的好奇和INTJ的专注可以形成很好的互补，你们能够共同探索复杂问题。',
+                    'INFJ': 'INTP的理性和INFJ的直觉可以形成平衡，你们需要学会理解彼此的差异。',
+                    'ENTJ': 'INTP的灵活和ENTJ的果断需要一些磨合，但也能相互成就。',
+                    'default': 'INTP是好奇的思想家，在这段关系中，你需要找到能够激发你思考的人。'
+                }
+            },
+            'ESTP': {
+                'best': ['ISTP', 'ESTP', 'ENTP'],
+                'good': ['ESTJ', 'ESFJ', 'ENTJ', 'ENFJ', 'ESFP'],
+                'analysis': {
+                    'ISTP': 'ESTP和ISTP都是行动派，你们喜欢冒险和挑战，关系充满活力和刺激。',
+                    'ESTP': '两个ESTP在一起，会形成充满能量的组合，你们能够一起探索世界。',
+                    'ENTP': 'ESTP的行动能力和ENTP的创意可以形成很好的互补，你们的关系充满可能性。',
+                    'ESTJ': 'ESTP的灵活和ESTJ的组织能力可以形成平衡，你们需要学会相互配合。',
+                    'ESFJ': 'ESTP的外向和ESFJ的关怀可以形成温馨的关系，你们能够相互支持。',
+                    'default': 'ESTP是充满活力的冒险者，在这段关系中，你需要保持关系的新鲜感和刺激感。'
+                }
+            },
+            'ESFP': {
+                'best': ['ISFP', 'ESFP', 'ENFP'],
+                'good': ['ESFJ', 'ESTJ', 'ENFJ', 'ENTJ', 'ESTP'],
+                'analysis': {
+                    'ISFP': 'ESFP和ISFP都热爱生活，你们能够一起创造美好的回忆，关系充满热情。',
+                    'ESFP': '两个ESFP在一起，会形成充满欢乐的组合，你们的生活永远不会枯燥。',
+                    'ENFP': 'ESFP的活力和ENFP的创意可以形成完美的搭配，你们的关系充满惊喜和乐趣。',
+                    'ESFJ': 'ESFP的外向和ESFJ的关怀可以形成温暖的关系，你们都善于与人相处。',
+                    'ESTJ': 'ESFP的灵活和ESTJ的稳定需要一些磨合，但也能相互学习。',
+                    'default': 'ESFP是热情的表演者，在这段关系中，你需要找到能够与你共享欢乐的人。'
+                }
+            },
+            'ENFP': {
+                'best': ['INFP', 'ENFP', 'ENFJ'],
+                'good': ['ENFJ', 'ENTJ', 'ENTP', 'INTP', 'INFJ'],
+                'analysis': {
+                    'INFP': 'ENFP和INFP都是理想主义者，你们能够相互理解和支持，关系充满深度和创意。',
+                    'ENFP': '两个ENFP在一起，会形成充满激情和创意的组合，你们的生活永远充满可能性。',
+                    'ENFJ': 'ENFP的热情和ENFJ的关怀可以形成完美的搭配，你们都善于理解他人。',
+                    'ENTJ': 'ENFP的灵活和ENTJ的果断可以形成互补，你们需要学会相互包容。',
+                    'ENTP': 'ENFP的创意和ENTP的好奇心可以形成有趣的组合，你们能够相互启发。',
+                    'default': 'ENFP是充满创意的梦想家，在这段关系中，你需要找到能够与你共享愿景的人。'
+                }
+            },
+            'ENTP': {
+                'best': ['INTP', 'ENTP', 'ENTJ'],
+                'good': ['ENTJ', 'ENFJ', 'ESTP', 'ISTP', 'INTJ'],
+                'analysis': {
+                    'INTP': 'ENTP和INTP都是思想者，你们能够进行深度的智力交流，关系充满趣味和挑战。',
+                    'ENTP': '两个ENTP在一起，会形成充满创意和辩论的组合，你们的思想碰撞会带来很多乐趣。',
+                    'ENTJ': 'ENTP的创意和ENTJ的执行力可以形成完美的搭配，你们能够共同实现目标。',
+                    'ENFJ': 'ENTP的灵活和ENFJ的关怀需要一些磨合，但也能相互学习。',
+                    'ESTP': 'ENTP的思想和ESTP的行动可以形成很好的互补，你们能够相互成就。',
+                    'default': 'ENTP是好奇的辩论家，在这段关系中，你需要找到能够挑战你思想的人。'
+                }
+            },
+            'ESTJ': {
+                'best': ['ISTJ', 'ESTJ', 'ENTJ'],
+                'good': ['ESTP', 'ISTP', 'ENTP', 'INTP', 'ESFJ'],
+                'analysis': {
+                    'ISTJ': 'ESTJ和ISTJ都是务实派，你们重视效率和秩序，能够共同创造稳定的生活。',
+                    'ESTJ': '两个ESTJ在一起，会形成非常有组织和效率的组合，你们的目标明确。',
+                    'ENTJ': 'ESTJ的执行能力和ENTJ的战略思维可以形成完美的搭配，你们能够共同实现伟大的目标。',
+                    'ESTP': 'ESTJ的组织能力和ESTP的行动力可以形成很好的互补，你们能够相互配合。',
+                    'ISTP': 'ESTJ的结构和ISTP的灵活需要一些磨合，但也能相互学习。',
+                    'default': 'ESTJ是高效的组织者，在这段关系中，你需要学会理解他人的不同做事方式。'
+                }
+            },
+            'ESFJ': {
+                'best': ['ISFJ', 'ESFJ', 'ENFJ'],
+                'good': ['ESFP', 'ISFP', 'ENFP', 'INFP', 'ESTJ'],
+                'analysis': {
+                    'ISFJ': 'ESFJ和ISFJ都充满爱心，你们善于照顾他人，能够创造充满温暖的家庭氛围。',
+                    'ESFJ': '两个ESFJ在一起，会形成非常温馨和关怀的组合，你们的关系充满爱和支持。',
+                    'ENFJ': 'ESFJ的关怀和ENFJ的领导力可以形成完美的搭配，你们都善于理解和支持他人。',
+                    'ESFP': 'ESFJ的组织能力和ESFP的活力可以形成很好的互补，你们能够共同创造欢乐的氛围。',
+                    'ISFP': 'ESFJ的关怀和ISFP的温柔可以形成温暖的关系，你们都重视情感连接。',
+                    'default': 'ESFJ是温暖的照顾者，在这段关系中，你需要学会照顾自己的需求。'
+                }
+            },
+            'ENFJ': {
+                'best': ['INFJ', 'ENFJ', 'ENFP'],
+                'good': ['ENFP', 'INFP', 'ENTP', 'INTP', 'ENTJ'],
+                'analysis': {
+                    'INFJ': 'ENFJ和INFJ都是理想主义者，你们能够深刻理解彼此的内心世界，关系充满深度和理解。',
+                    'ENFJ': '两个ENFJ在一起，会形成充满爱和关怀的组合，你们都善于理解和支持他人。',
+                    'ENFP': 'ENFJ的领导力和ENFP的创意可以形成完美的搭配，你们能够共同激励他人。',
+                    'INFP': 'ENFJ的关怀和INFP的理想主义可以形成温暖的关系，你们能够相互支持。',
+                    'ENTP': 'ENFJ的组织能力和ENTP的创意需要一些磨合，但也能相互成就。',
+                    'default': 'ENFJ是充满魅力的领导者，在这段关系中，你需要找到能够理解你内心需求的人。'
+                }
+            },
+            'ENTJ': {
+                'best': ['INTJ', 'ENTJ', 'ENTP'],
+                'good': ['ENTP', 'INTP', 'ESTP', 'ISTP', 'ENFJ'],
+                'analysis': {
+                    'INTJ': 'ENTJ和INTJ都是战略思考者，你们能够相互挑战和激励，共同实现伟大的目标。',
+                    'ENTJ': '两个ENTJ在一起，会形成充满动力和目标的组合，你们的效率和执行力惊人。',
+                    'ENTP': 'ENTJ的执行力和ENTP的创意可以形成完美的搭配，你们能够共同创造伟大的事业。',
+                    'INTP': 'ENTJ的果断和INTP的分析能力可以形成很好的互补，你们能够相互学习。',
+                    'ESTP': 'ENTJ的战略思维和ESTP的行动力可以形成很好的配合，你们能够共同实现目标。',
+                    'default': 'ENTJ是果断的领导者，在这段关系中，你需要学会倾听他人的意见。'
+                }
+            }
+        };
+        
+        // 星座匹配度数据库
+        const zodiacCompatibility = {
+            '白羊座': {
+                'best': ['狮子座', '射手座'],
+                'good': ['双子座', '水瓶座', '白羊座'],
+                'worst': ['巨蟹座', '摩羯座', '天秤座'],
+                'analysis': '白羊座是热情、冲动的行动派，你们需要找到能够匹配你们能量和冒险精神的伴侣。'
+            },
+            '金牛座': {
+                'best': ['处女座', '摩羯座'],
+                'good': ['巨蟹座', '双鱼座', '金牛座'],
+                'worst': ['狮子座', '水瓶座', '天蝎座'],
+                'analysis': '金牛座是踏实、稳定的守护者，你们重视安全感和物质基础，需要找到能够理解你们价值观的伴侣。'
+            },
+            '双子座': {
+                'best': ['天秤座', '水瓶座'],
+                'good': ['白羊座', '狮子座', '射手座'],
+                'worst': ['处女座', '双鱼座', '天蝎座'],
+                'analysis': '双子座是好奇、善变的沟通者，你们需要找到能够与你们进行思想交流和保持关系新鲜感的伴侣。'
+            },
+            '巨蟹座': {
+                'best': ['天蝎座', '双鱼座'],
+                'good': ['金牛座', '处女座', '摩羯座'],
+                'worst': ['白羊座', '天秤座', '水瓶座'],
+                'analysis': '巨蟹座是敏感、爱家的守护者，你们重视情感连接和家庭生活，需要找到能够给你们安全感的伴侣。'
+            },
+            '狮子座': {
+                'best': ['白羊座', '射手座'],
+                'good': ['双子座', '天秤座', '水瓶座'],
+                'worst': ['金牛座', '天蝎座', '摩羯座'],
+                'analysis': '狮子座是自信、慷慨的领导者，你们需要找到能够欣赏你们的魅力和支持你们的伴侣。'
+            },
+            '处女座': {
+                'best': ['金牛座', '摩羯座'],
+                'good': ['巨蟹座', '天蝎座', '双鱼座'],
+                'worst': ['双子座', '射手座', '水瓶座'],
+                'analysis': '处女座是细心、务实的完美主义者，你们重视细节和效率，需要找到能够理解你们追求完美的伴侣。'
+            },
+            '天秤座': {
+                'best': ['双子座', '水瓶座'],
+                'good': ['白羊座', '狮子座', '射手座'],
+                'worst': ['巨蟹座', '摩羯座', '天蝎座'],
+                'analysis': '天秤座是优雅、公正的和平使者，你们重视和谐和平衡，需要找到能够与你们建立平等关系的伴侣。'
+            },
+            '天蝎座': {
+                'best': ['巨蟹座', '双鱼座'],
+                'good': ['金牛座', '处女座', '摩羯座'],
+                'worst': ['白羊座', '狮子座', '水瓶座'],
+                'analysis': '天蝎座是深沉、热情的探索者，你们重视深度和真诚，需要找到能够与你们建立灵魂连接的伴侣。'
+            },
+            '射手座': {
+                'best': ['白羊座', '狮子座'],
+                'good': ['双子座', '天秤座', '水瓶座'],
+                'worst': ['金牛座', '处女座', '双鱼座'],
+                'analysis': '射手座是乐观、自由的冒险家，你们重视个人成长和探索，需要找到能够支持你们自由精神的伴侣。'
+            },
+            '摩羯座': {
+                'best': ['金牛座', '处女座'],
+                'good': ['巨蟹座', '天蝎座', '双鱼座'],
+                'worst': ['白羊座', '狮子座', '射手座'],
+                'analysis': '摩羯座是务实、有责任感的成就者，你们重视事业和成就，需要找到能够理解你们追求成功的伴侣。'
+            },
+            '水瓶座': {
+                'best': ['双子座', '天秤座'],
+                'good': ['白羊座', '狮子座', '射手座'],
+                'worst': ['金牛座', '天蝎座', '巨蟹座'],
+                'analysis': '水瓶座是独立、创新的思考者，你们重视个人自由和进步，需要找到能够尊重你们独特性的伴侣。'
+            },
+            '双鱼座': {
+                'best': ['巨蟹座', '天蝎座'],
+                'good': ['金牛座', '处女座', '摩羯座'],
+                'worst': ['双子座', '射手座', '狮子座'],
+                'analysis': '双鱼座是敏感、梦幻的理想主义者，你们重视情感和精神连接，需要找到能够理解你们内心世界的伴侣。'
+            }
+        };
+        
+        // 五行相生相克数据库
+        const elementsCompatibility = {
+            '相生': {
+                '金生水': '金能生水，金为水之母，水为金之子。',
+                '水生木': '水能生木，水为木之母，木为水之子。',
+                '木生火': '木能生火，木为火之母，火为木之子。',
+                '火生土': '火能生土，火为土之母，土为火之子。',
+                '土生金': '土能生金，土为金之母，金为土之子。'
+            },
+            '相克': {
+                '金克木': '金能克木，木多金缺。',
+                '木克土': '木能克土，土多木折。',
+                '土克水': '土能克水，水多土流。',
+                '水克火': '水能克火，火多水干。',
+                '火克金': '火能克金，金多火熄。'
+            },
+            '属性特点': {
+                '金': '金主义，其性刚，其情烈，为人正直，做事认真负责。',
+                '木': '木主仁，其性直，其情和，为人博爱恻隐，慈祥恺悌。',
+                '水': '水主智，其性聪，其情善，为人深思熟虑，足智多谋。',
+                '火': '火主礼，其性急，其情恭，为人热情爽快，谦逊恭敬。',
+                '土': '土主信，其性重，其情厚，为人忠孝至诚，度量宽厚。'
+            }
+        };
+        
+        // 开始测试
+        testBtn.addEventListener('click', function() {
+            // 获取表单数据
+            const person1 = {
+                name: document.getElementById('name1').value,
+                gender: document.querySelector('input[name="gender1"]:checked').value,
+                birthday: document.getElementById('birthday1').value,
+                mbti: document.getElementById('mbti1').value,
+                zodiac: document.getElementById('zodiac1').value.split(' ')[0],
+                element: document.getElementById('element1').value,
+                hobbies: Array.from(document.querySelectorAll('input[name="hobby1"]:checked')).map(el => el.value),
+                music: Array.from(document.querySelectorAll('input[name="music1"]:checked')).map(el => el.value),
+                habits: document.getElementById('habits1').value
+            };
+            
+            const person2 = {
+                name: document.getElementById('name2').value,
+                gender: document.querySelector('input[name="gender2"]:checked').value,
+                birthday: document.getElementById('birthday2').value,
+                mbti: document.getElementById('mbti2').value,
+                zodiac: document.getElementById('zodiac2').value.split(' ')[0],
+                element: document.getElementById('element2').value,
+                hobbies: Array.from(document.querySelectorAll('input[name="hobby2"]:checked')).map(el => el.value),
+                music: Array.from(document.querySelectorAll('input[name="music2"]:checked')).map(el => el.value),
+                habits: document.getElementById('habits2').value
+            };
+            
+            // 简单验证
+            if (!person1.name || !person2.name || !person1.birthday || !person2.birthday) {
+                alert('请填写所有必填信息！');
+                return;
+            }
+            
+            // 显示加载动画
+            loadingDiv.style.display = 'block';
+            
+            // 模拟分析过程
+            setTimeout(() => {
+                // 计算匹配度
+                const compatibilityScore = calculateCompatibility(person1, person2);
+                
+                // 显示结果
+                showResults(person1, person2, compatibilityScore);
+                
+                // 隐藏加载动画
+                loadingDiv.style.display = 'none';
+            }, 1500);
+        });
+        
+        // 重新测试
+        restartBtn.addEventListener('click', function() {
+            form.reset();
+            resultsDiv.style.display = 'none';
+            form.scrollIntoView({ behavior: 'smooth' });
+        });
+        
+        // 计算匹配度
+        function calculateCompatibility(person1, person2) {
+            let baseScore = 60; // 基础分
+            
+            // MBTI匹配度加成
+            const mbti1 = person1.mbti;
+            const mbti2 = person2.mbti;
+            
+            if (mbtiCompatibility[mbti1]) {
+                if (mbtiCompatibility[mbti1].best.includes(mbti2)) {
+                    baseScore += 15;
+                } else if (mbtiCompatibility[mbti1].good.includes(mbti2)) {
+                    baseScore += 8;
+                }
+            }
+            
+            // 星座匹配度加成
+            const zodiac1 = person1.zodiac;
+            const zodiac2 = person2.zodiac;
+            
+            if (zodiacCompatibility[zodiac1]) {
+                if (zodiacCompatibility[zodiac1].best.includes(zodiac2)) {
+                    baseScore += 10;
+                } else if (zodiacCompatibility[zodiac1].good.includes(zodiac2)) {
+                    baseScore += 5;
+                }
+            }
+            
+            // 五行匹配度加成/减分
+            const element1 = person1.element;
+            const element2 = person2.element;
+            
+            const xiangSheng = {
+                '金': '水',
+                '水': '木',
+                '木': '火',
+                '火': '土',
+                '土': '金'
+            };
+            
+            const xiangKe = {
+                '金': '木',
+                '木': '土',
+                '土': '水',
+                '水': '火',
+                '火': '金'
+            };
+            
+            if (xiangSheng[element1] === element2 || xiangSheng[element2] === element1) {
+                baseScore += 8; // 相生加成
+            } else if (xiangKe[element1] === element2 || xiangKe[element2] === element1) {
+                baseScore -= 3; // 相克减分（轻微，因为相克也可能互补）
+            } else if (element1 === element2) {
+                baseScore += 5; // 相同属性加成
+            }
+            
+            // 兴趣爱好匹配度
+            const commonHobbies = person1.hobbies.filter(hobby => person2.hobbies.includes(hobby));
+            const hobbySimilarity = commonHobbies.length / Math.max(person1.hobbies.length, person2.hobbies.length, 1);
+            baseScore += hobbySimilarity * 10;
+            
+            // 音乐偏好匹配度
+            const commonMusic = person1.music.filter(music => person2.music.includes(music));
+            const musicSimilarity = commonMusic.length / Math.max(person1.music.length, person2.music.length, 1);
+            baseScore += musicSimilarity * 5;
+            
+            // 其他随机因素（模拟行为习惯等复杂因素）
+            const randomFactor = Math.floor(Math.random() * 10);
+            baseScore += randomFactor;
+            
+            // 确保分数在合理范围内
+            return Math.min(Math.max(baseScore, 30), 100);
+        }
+        
+        // 显示测试结果
+        function showResults(person1, person2, score) {
+            // 设置匹配等级
+            let level = '';
+            let levelColor = '';
+            let levelDescription = '';
+            
+            if (score >= 90) {
+                level = '💖 天生一对';
+                levelColor = '#e74c3c';
+                levelDescription = '你们的缘分天注定，仿佛是为彼此而生。无论在性格、兴趣还是价值观上，都有着惊人的契合度。';
+            } else if (score >= 80) {
+                level = '💕 非常匹配';
+                levelColor = '#e91e63';
+                levelDescription = '你们是非常般配的一对，在大多数方面都能相互理解和支持。只要用心经营，这段关系会非常美满。';
+            } else if (score >= 70) {
+                level = '💞 比较匹配';
+                levelColor = '#f39c12';
+                levelDescription = '你们有着不错的缘分基础，但还需要一些磨合。通过相互理解和包容，你们可以建立稳定而幸福的关系。';
+            } else if (score >= 60) {
+                level = '💓 需要磨合';
+                levelColor = '#27ae60';
+                levelDescription = '你们的性格和生活方式存在一些差异，需要更多的沟通和理解。如果双方都愿意付出努力，也能创造美好的未来。';
+            } else {
+                level = '💔 挑战较大';
+                levelColor = '#95a5a6';
+                levelDescription = '你们之间存在较大的差异和挑战。如果想要发展关系，需要双方做出较大的调整和妥协，并且要有足够的耐心和爱心。';
+            }
+            
+            // 更新UI
+            levelEl.textContent = level;
+            levelEl.style.color = levelColor;
+            overallSummaryEl.textContent = `${person1.name}与${person2.name}的综合匹配度为${score}%。${levelDescription}`;
+            
+            // 分数动画
+            animateScore(score);
+            
+            // 设置各维度分析内容
+            // MBTI分析
+            let mbtiAnalysis = '';
+            if (mbtiCompatibility[person1.mbti] && mbtiCompatibility[person1.mbti].analysis[person2.mbti]) {
+                mbtiAnalysis = mbtiCompatibility[person1.mbti].analysis[person2.mbti];
+            } else if (mbtiCompatibility[person1.mbti]) {
+                mbtiAnalysis = mbtiCompatibility[person1.mbti].analysis.default;
+            } else {
+                mbtiAnalysis = `作为${person1.mbti}的${person1.name}和${person2.mbti}的${person2.name}，你们在性格上有各自的特点，需要相互理解和包容。`;
+            }
+            mbtiAnalysisEl.textContent = mbtiAnalysis;
+            
+            // 星座分析
+            let zodiacAnalysis = '';
+            const zodiac1 = person1.zodiac;
+            const zodiac2 = person2.zodiac;
+            
+            if (zodiacCompatibility[zodiac1]) {
+                if (zodiacCompatibility[zodiac1].best.includes(zodiac2)) {
+                    zodiacAnalysis = `${zodiac1}和${zodiac2}是天生的一对！${zodiacCompatibility[zodiac1].analysis}`;
+                } else if (zodiacCompatibility[zodiac1].good.includes(zodiac2)) {
+                    zodiacAnalysis = `${zodiac1}和${zodiac2}很相配！${zodiacCompatibility[zodiac1].analysis}`;
+                } else if (zodiacCompatibility[zodiac1].worst.includes(zodiac2)) {
+                    zodiacAnalysis = `${zodiac1}和${zodiac2}需要一些磨合。${zodiacCompatibility[zodiac1].analysis}但通过相互理解，你们也能建立美好的关系。`;
+                } else {
+                    zodiacAnalysis = `${zodiac1}和${zodiac2}有着独特的缘分。${zodiacCompatibility[zodiac1].analysis}`;
+                }
+            }
+            zodiacAnalysisEl.textContent = zodiacAnalysis;
+            
+            // 五行分析
+            let elementsAnalysis = '';
+            const element1 = person1.element;
+            const element2 = person2.element;
+            
+            if (element1 === element2) {
+                elementsAnalysis = `你们都是${element1}属性，有着相似的性格特点。${elementsCompatibility['属性特点'][element1]}相同属性的人更容易相互理解，但也需要注意避免相似缺点的叠加。`;
+            } else {
+                const xiangSheng = `${element1}${element2}`;
+                const xiangShengReverse = `${element2}${element1}`;
+                const xiangKe = `${element1}${element2}`;
+                const xiangKeReverse = `${element2}${element1}`;
+                
+                if (elementsCompatibility['相生'][xiangSheng] || elementsCompatibility['相生'][xiangShengReverse]) {
+                    const relation = elementsCompatibility['相生'][xiangSheng] || elementsCompatibility['相生'][xiangShengReverse];
+                    elementsAnalysis = `你们的五行属性${relation}，属于相生关系，能够相互促进和支持。${elementsCompatibility['属性特点'][element1]}${elementsCompatibility['属性特点'][element2]}`;
+                } else if (elementsCompatibility['相克'][xiangKe] || elementsCompatibility['相克'][xiangKeReverse]) {
+                    const relation = elementsCompatibility['相克'][xiangKe] || elementsCompatibility['相克'][xiangKeReverse];
+                    elementsAnalysis = `你们的五行属性${relation}，属于相克关系。虽然表面上看似冲突，但实际上也可以互补，关键在于相互理解和包容。${elementsCompatibility['属性特点'][element1]}${elementsCompatibility['属性特点'][element2]}`;
+                } else {
+                    elementsAnalysis = `你们的五行属性既不相生也不相克，属于平和的关系。${elementsCompatibility['属性特点'][element1]}${elementsCompatibility['属性特点'][element2]}这种关系需要双方共同努力来经营。`;
+                }
+            }
+            elementsAnalysisEl.textContent = elementsAnalysis;
+            
+            // 兴趣爱好分析
+            const commonHobbies = person1.hobbies.filter(hobby => person2.hobbies.includes(hobby));
+            if (commonHobbies.length > 0) {
+                hobbyAnalysisEl.textContent = `${person1.name}和${person2.name}都喜欢${commonHobbies.join('、')}，这些共同爱好是你们关系的重要纽带。建议你们多一起参与这些活动，加深彼此的感情。`;
+            } else if (person1.hobbies.length > 0 && person2.hobbies.length > 0) {
+                hobbyAnalysisEl.textContent = `${person1.name}和${person2.name}的兴趣爱好有所不同，一个喜欢${person1.hobbies.join('、')}，另一个喜欢${person2.hobbies.join('、')}。这可以成为你们互相学习和探索新事物的机会，不妨尝试参与对方感兴趣的活动。`;
+            } else {
+                hobbyAnalysisEl.textContent = `兴趣爱好是关系中的重要组成部分。建议你们一起探索新的兴趣，找到共同喜欢的活动，这将有助于加深你们的感情连接。`;
+            }
+            
+            // 音乐品味分析
+            const commonMusic = person1.music.filter(music => person2.music.includes(music));
+            if (commonMusic.length > 0) {
+                musicAnalysisEl.textContent = `${person1.name}和${person2.name}都喜欢${commonMusic.join('、')}音乐，音乐可以成为你们沟通和表达情感的重要方式。不妨一起听喜欢的音乐，分享彼此的感受。`;
+            } else if (person1.music.length > 0 && person2.music.length > 0) {
+                musicAnalysisEl.textContent = `${person1.name}和${person2.name}的音乐品味有所不同，一个喜欢${person1.music.join('、')}，另一个喜欢${person2.music.join('、')}。这可以丰富你们的音乐世界，不妨互相推荐喜欢的音乐，扩展彼此的音乐视野。`;
+            } else {
+                musicAnalysisEl.textContent = `音乐是生活中的调味剂，也是情感表达的重要方式。建议你们一起探索不同类型的音乐，找到能够引起共鸣的音乐风格。`;
+            }
+            
+            // 行为习惯分析
+            if (person1.habits && person2.habits) {
+                const habits1 = person1.habits.trim();
+                const habits2 = person2.habits.trim();
+                
+                if (habits1 && habits2) {
+                    habitAnalysisEl.textContent = `${person1.name}的日常习惯是：${habits1}；${person2.name}的日常习惯是：${habits2}。生活习惯的差异需要相互理解和包容，建议你们找到平衡点，尊重彼此的生活方式，同时也可以一起培养新的好习惯。`;
+                } else if (habits1) {
+                    habitAnalysisEl.textContent = `${person1.name}的日常习惯是：${habits1}。了解彼此的生活习惯有助于建立和谐的关系，建议${person2.name}也分享一下自己的日常习惯，以便更好地相互适应。`;
+                } else if (habits2) {
+                    habitAnalysisEl.textContent = `${person2.name}的日常习惯是：${habits2}。了解彼此的生活习惯有助于建立和谐的关系，建议${person1.name}也分享一下自己的日常习惯，以便更好地相互适应。`;
+                }
+            } else {
+                habitAnalysisEl.textContent = `日常行为习惯是长期形成的，了解彼此的习惯有助于减少生活中的摩擦。建议你们多交流各自的生活习惯，相互理解和包容，共同创造舒适的生活环境。`;
+            }
+            
+            // 相处建议
+            let advice = '';
+            if (score >= 90) {
+                advice = `你们是如此般配，简直是天生一对！建议你们保持彼此的坦诚和信任，珍惜这份难得的缘分。可以一起制定未来的计划和目标，共同成长和进步。记住，即使是最完美的关系也需要用心经营，保持沟通和理解是关键。`;
+            } else if (score >= 80) {
+                advice = `你们的关系有着很好的基础！建议你们多花时间相处，深入了解彼此的内心世界。在遇到分歧时，保持冷静和理性，通过沟通解决问题。记住，尊重和信任是关系长久的基石。`;
+            } else if (score >= 70) {
+                advice = `你们的关系需要一些磨合。建议你们加强沟通，多站在对方的角度思考问题。在生活中多创造一些共同的回忆和经历，加深彼此的感情。记住，理解和包容是解决差异的关键。`;
+            } else if (score >= 60) {
+                advice = `你们的关系需要更多的理解和包容。建议你们建立良好的沟通机制，坦诚地表达自己的想法和感受。在面对差异时，尝试寻找共同点，而不是纠结于分歧。记住，每段关系都需要双方的努力和付出。`;
+            } else {
+                advice = `你们之间存在较大的差异和挑战。建议你们先从朋友做起，慢慢了解彼此。在这个过程中，保持开放的心态，尊重对方的不同。如果真的想要发展关系，需要双方都有足够的耐心和决心，共同面对困难并寻找解决方案。`;
+            }
+            
+            // 设置建议内容
+            adviceEl.textContent = advice;
+            
+            // 显示结果区域
+            resultsDiv.style.display = 'block';
+            resultsDiv.scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        // 分数动画效果
+        function animateScore(targetScore) {
+            let currentScore = 0;
+            const scoreElement = document.getElementById('compatibility-score');
+            const interval = setInterval(() => {
+                if (currentScore < targetScore) {
+                    currentScore += 1;
+                    scoreElement.textContent = `${currentScore}%`;
+                } else {
+                    clearInterval(interval);
+                }
+            }, 15);
+        }
+        
+        // 初始化
+        document.addEventListener('DOMContentLoaded', function() {
+            // 设置表单提交事件
+            form.addEventListener('submit', handleSubmit);
+            resetBtn.addEventListener('click', handleReset);
+            
+            // 预填充示例数据（可选）
+            // 如果需要自动填充示例数据，可以取消下面的注释
+            /*
+            document.getElementById('name1').value = '张三';
+            document.getElementById('gender1').value = 'male';
+            document.getElementById('birthday1').value = '1995-05-20';
+            document.getElementById('mbti1').value = 'ENTP';
+            document.getElementById('zodiac1').value = '金牛座';
+            document.getElementById('element1').value = '土';
+            
+            document.getElementById('name2').value = '李四';
+            document.getElementById('gender2').value = 'female';
+            document.getElementById('birthday2').value = '1996-09-15';
+            document.getElementById('mbti2').value = 'INFJ';
+            document.getElementById('zodiac2').value = '处女座';
+            document.getElementById('element2').value = '土';
+            */
+        });
+    </script>
+</body>
+</html>
